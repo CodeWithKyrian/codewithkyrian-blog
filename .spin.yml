@@ -1,0 +1,52 @@
+---
+###########################################
+# Basic Server Configuration
+###########################################
+server_timezone: "Etc/UTC"
+server_contact: kyrianobikwelu@gmail.com
+
+# If you the SSH port below, you may need to run `spin provision -p <your-default-ssh-port>`
+# to get a connection on your first provision. Otherwise, SSH will try connecting
+# to your new port before the SSH server configuration is updated.
+ssh_port: "22"
+
+## Email Notifications
+postfix_hostname: "{{ inventory_hostname }}" # ✅ Set automatically
+
+## Set variables below to enable external SMTP relay
+# postfix_relayhost: "smtp.example.com"
+# postfix_relayhost_port: "587"
+# postfix_relayhost_username: "myusername"
+# postfix_relayhost_password: "mysupersecretpassword"
+
+##############################################################
+# Deploy User
+##############################################################
+# Docker user configuration.
+docker_user:
+  username: deploy
+  uid: 9999
+  group: deploy
+  secondary_groups: "docker"
+  gid: 9999
+  authorized_ssh_keys:
+    - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHraClrHSkW7frT25GzaByg/7Z9oRU1S0gF4SZj+AwLP deploy"
+
+##############################################################
+# Users
+##############################################################
+
+### Use the template below to set users and their authorized keys
+## Passwords must be set with an encrypted hash. To do this, see the Ansible FAQ.
+## Your best bet is probably using the `mkpasswd` on a Linux machine.
+## https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module
+
+users:
+  - username: kyrian
+    name: Kyrian Obikwelu
+    state: present
+    groups: ['adm','sudo']
+    password: "$6$nCL/vGAqOlx3$JyLg730RpLbjxE7snt8GDvKYKLkgQ37dvRqVCPqWG3AOez2IZi.Ha/P95J4Lm.TWxpeclthXTSxPSkhxWHBCD1"
+    shell: "/bin/bash"
+    authorized_keys:
+      - public_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE20Bgb8R2MB8sgF2RPfxczy5jGYXAQCj7DThjElA7WM koshnawaza@gmail.com"

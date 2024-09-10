@@ -35,4 +35,23 @@ return [
         ],
     ],
 
+    'plausible' => [
+        'tracking_url' => env('PLAUSIBLE_TRACKING_URL'),
+        'base_url' => env('PLAUSIBLE_BASE_URL', 'https://plausible.io'),
+        'key' => env('PLAUSIBLE_API_KEY'),
+        'domain' => env('PLAUSIBLE_DOMAIN', 'codewithkyrian.com'),
+    ],
+
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => '/auth/github/callback',
+    ],
+
+    'google' => [
+        'client_id'     => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect'      => '/auth/google/callback',
+    ],
+
 ];

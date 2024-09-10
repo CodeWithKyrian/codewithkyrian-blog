@@ -1,0 +1,23 @@
+name: 🛠️ Build and Deploy to Production
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: serversideup/github-action-docker-swarm-deploy@v2
+        with:
+          ssh_deploy_private_key: "${{ secrets.SSH_DEPLOY_PRIVATE_KEY }}"
+          ssh_remote_hostname: "${{ secrets.SSH_REMOTE_HOSTNAME }}"
+          registry: "ghcr.io"
+          registry-username: "${{ github.actor }}"
+          registry-token: "${{ secrets.GITHUB_TOKEN }}"
+          stack_name: "${{ env.PROJECT_NAME }}"
+          md5_file_path: "./.infrastructure/conf/traefik/prod/traefik.yml"
+          md5_variable_name: "SPIN_MD5_HASH_TRAEFIK_YML"

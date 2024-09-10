@@ -1,0 +1,151 @@
+@import "@fontsource/source-sans-pro";
+@import "@fontsource/jetbrains-mono";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+}
+
+.permalink {
+    @apply text-gray-300 absolute font-light no-underline hover:text-gray-600;
+}
+
+h1 .permalink { margin-left: -28px; }
+h2 .permalink { margin-left: -22px; }
+h3 .permalink { margin-left: -19px; }
+h4 .permalink { margin-left: -18px; }
+h5 .permalink { margin-left: -16px; }
+h6 .permalink { margin-left: -13px; }
+
+.project-screenshot-scroll {
+    position: absolute; /* Position absolute to allow scrolling */
+    top: 0; /* Start from the top */
+    left: 0; /* Start from the left */
+    height: auto; /* Allow height to adjust based on the image */
+    width: 100%; /* Match the width of the parent container */
+    animation: scrollScreenshot 20s linear infinite;
+}
+
+@keyframes scrollScreenshot {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(var(--scroll-height));
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.project-screenshot-scroll:hover {
+    animation-play-state: paused; /* Pause on hover */
+}
+
+@layer components {
+    [x-cloak] { display: none !important; } 
+    
+    /* width */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        @apply bg-zinc-900;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        @apply bg-zinc-600 rounded-sm;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-zinc-500;
+    }
+
+    .app-border {
+        @apply border border-zinc-300 dark:border-zinc-700/60;
+    }
+
+    .card {
+        @apply p-4 md:p-6 shadow-sm rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700/60;
+    }
+
+    .card-title {
+        @apply mb-5 text-lg md:text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-300;
+    }
+
+    .harmburger .top {
+        stroke-dasharray: 40 160;
+        transition: stroke-dashoffset 400ms;
+    }
+
+    .harmburger .middle {
+        transform-origin: 50%;
+        transition: transform 400ms;
+    }
+
+    .harmburger .bottom {
+        stroke-dasharray: 40 85;
+        transition: stroke-dashoffset 400ms;
+    }
+
+    .harmburger .open {
+        transform: rotate(45deg);
+    }
+
+    .harmburger .open .top,
+    .harmburger .open .bottom {
+        stroke-dashoffset: -64px;
+    }
+
+    .harmburger .open .middle {
+        transform: rotate(90deg);
+    }
+
+    .prose :where(pre):not(:where([class~="not-prose"] *)) {
+        @apply !text-[13px] relative bg-[length:2.5rem] bg-[left_0.5rem_top_0.5rem] bg-no-repeat pt-10;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 12'%3E%3Ccircle cx='4' cy='6' r='2' fill='%23FF3B30'/%3E%3Ccircle cx='10' cy='6' r='2' fill='%23FF9500'/%3E%3Ccircle cx='16' cy='6' r='2' fill='%234CD964'/%3E%3C/svg%3E");
+    }
+
+    .prose :where(pre code):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+        @apply !bg-transparent block overflow-x-auto pb-3;
+    }
+
+
+    .code-title {
+        @apply relative z-10 text-sm italic text-zinc-500 -mb-[3.15rem] mt-[3.15rem] ml-[3.5rem];
+    }
+
+    .code-copy {
+        @apply absolute top-2 right-2 z-10 w-8 h-8 border border-zinc-600/60 hover:border-zinc-600 rounded-md flex items-center justify-center;
+    }
+
+    /* Normal state SVG icon */
+    .code-copy .code-copy-icon {
+        @apply w-4 h-4 text-zinc-100;
+        background-image: url('data:image/svg+xml,%3Csvg fill%3D%22none%22 stroke%3D%22%233F3F46%22 stroke-width%3D%221.5%22 viewBox%3D%220 0 24 24%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 aria-hidden%3D%22true%22%3E%3Cpath stroke-linecap%3D%22round%22 stroke-linejoin%3D%22round%22 d%3D%22M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
+    }
+
+    /* Copied state SVG icon */
+    .code-copy.copied .code-copy-icon,
+    .code-copy .code-copy-icon.copied {
+        background-image: url('data:image/svg+xml,%3Csvg fill%3D%22none%22 stroke%3D%22%2308C908%22 stroke-width%3D%221.5%22 viewBox%3D%220 0 24 24%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 aria-hidden%3D%22true%22%3E%3Cpath stroke-linecap%3D%22round%22 stroke-linejoin%3D%22round%22 d%3D%22M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
+    }
+
+    .grow-on-hover{
+        @apply relative hover:text-white;
+    }
+    .grow-on-hover:after {
+        @apply content-[''] -z-10 absolute top-0 left-0 w-2 h-full transition-all duration-300 bg-blue-800;
+    }
+    .grow-on-hover:hover:after {
+        @apply w-full;
+    }
+}

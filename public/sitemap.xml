@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    <url>
+        <loc>http://127.0.0.1:8000</loc>
+    
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/about-kyrian</loc>
+    
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/p/should-you-conceive-the-idea</loc>
+        <lastmod>2024-09-05T23:44:42+00:00</lastmod>
+
+    <image:image>
+    <image:loc>http://127.0.0.1:8000/storage/thumbnails/1/01J729EN0B70NVFYHTC54Z9VRP.png</image:loc>
+</image:image>
+        </url>
+    <url>
+        <loc>http://127.0.0.1:8000/p/gryphon-never-learnt-it</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+    <image:image>
+    <image:loc>http://127.0.0.1:8000/img/no-thumbnail.png</image:loc>
+</image:image>
+        </url>
+    <url>
+        <loc>http://127.0.0.1:8000/p/alice-have-you-seen-the</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+    <image:image>
+    <image:loc>http://127.0.0.1:8000/img/no-thumbnail.png</image:loc>
+</image:image>
+        </url>
+    <url>
+        <loc>http://127.0.0.1:8000/p/alice-as-she-could-and</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+    <image:image>
+    <image:loc>http://127.0.0.1:8000/img/no-thumbnail.png</image:loc>
+</image:image>
+        </url>
+    <url>
+        <loc>http://127.0.0.1:8000/p/im-perfectly-sure-i-have</loc>
+        <lastmod>2024-09-06T03:03:14+00:00</lastmod>
+
+    <image:image>
+    <image:loc>http://127.0.0.1:8000/img/no-thumbnail.png</image:loc>
+</image:image>
+        </url>
+    <url>
+        <loc>http://127.0.0.1:8000/p/building-a-background-removal-tool-with-laravel-and-transformersphp</loc>
+        <lastmod>2024-09-06T04:09:04+00:00</lastmod>
+
+    <image:image>
+    <image:loc>http://127.0.0.1:8000/storage/thumbnails/2/01J72AED1SKH388QZDNTV3YEFZ.png</image:loc>
+</image:image>
+        </url>
+    <url>
+        <loc>http://127.0.0.1:8000/p/so-she-was-considering-in</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+    <image:image>
+    <image:loc>http://127.0.0.1:8000/img/no-thumbnail.png</image:loc>
+</image:image>
+        </url>
+    <url>
+        <loc>http://127.0.0.1:8000/p/king-put-on-her-face-in-some</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+    <image:image>
+    <image:loc>http://127.0.0.1:8000/img/no-thumbnail.png</image:loc>
+</image:image>
+        </url>
+    <url>
+        <loc>http://127.0.0.1:8000/p/alices-shoulder-as-he-found</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+    <image:image>
+    <image:loc>http://127.0.0.1:8000/img/no-thumbnail.png</image:loc>
+</image:image>
+        </url>
+    <url>
+        <loc>http://127.0.0.1:8000/p/mock-turtle-is-its-the</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+    <image:image>
+    <image:loc>http://127.0.0.1:8000/img/no-thumbnail.png</image:loc>
+</image:image>
+        </url>
+    <url>
+        <loc>http://127.0.0.1:8000/p/dinah-tell-me-the-truth</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+    <image:image>
+    <image:loc>http://127.0.0.1:8000/img/no-thumbnail.png</image:loc>
+</image:image>
+        </url>
+    <url>
+        <loc>http://127.0.0.1:8000/p/but-her-sister-was-reading</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+    <image:image>
+    <image:loc>http://127.0.0.1:8000/img/no-thumbnail.png</image:loc>
+</image:image>
+        </url>
+    <url>
+        <loc>http://127.0.0.1:8000/t/php</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/t/laravel</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/t/codeigniter</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/t/vuejs</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/t/javascript</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/t/unity</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/t/c</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/t/svelte</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/t/docker</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/t/devops</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/c/guides-tutorials</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/c/newsletter-updates</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/c/tech-news</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/c/quick-tips</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/c/product-reviews</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/c/expert-interviews</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/c/miscellaneous</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/c/php-basics</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/c/advanced-laravel</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/c/mastering-vuejs</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://127.0.0.1:8000/c/docker-fundamentals</loc>
+        <lastmod>2024-09-05T23:42:20+00:00</lastmod>
+
+            </url>
+</urlset>
