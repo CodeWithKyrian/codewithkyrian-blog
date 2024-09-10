@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    needs: build
+    # needs: build
     runs-on: ubuntu-24.04
     steps:
       - uses: serversideup/github-action-docker-swarm-deploy@v2
