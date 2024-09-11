@@ -8,7 +8,7 @@ on:
 env:
   DOCKER_COMPOSE_CMD: docker compose -f docker-compose.yml -f docker-compose.ci.yml
   STACK_NAME: spin-production
-  SPIN_IMAGE_DOCKERFILE: codewithkyrian/app:latest
+  SPIN_IMAGE_DOCKERFILE: ghcr.io/codewithkyrian/app:latest
 
 jobs:
 
@@ -73,7 +73,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: node_modules/
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockb') }}
 
       - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
         name: Run "bun install"
