@@ -83,7 +83,7 @@ jobs:
           bun \
           bun install --frozen-lockfile
 
-      - name: Run "yarn build"
+      - name: Run "bun build"
         run: |
           $DOCKER_COMPOSE_CMD \
           run \
@@ -147,6 +147,7 @@ jobs:
         uses: serversideup/github-action-docker-build@v3
         with:
           tags: "${{ env.SPIN_IMAGE_DOCKERFILE }}"
+          dockerfile: Dockerfile
           registry: "ghcr.io"
           registry-username: "${{ github.actor }}"
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
