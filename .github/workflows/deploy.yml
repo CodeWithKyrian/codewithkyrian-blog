@@ -53,6 +53,9 @@ jobs:
     runs-on: ubuntu-22.04
     needs: composer-build
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Restore composer cache
         uses: actions/cache/restore@v4
         id: composer-cache-restore
