@@ -4,7 +4,6 @@ services:
     image: traefik:v3.1
 
 
-  app:
-    container_name: codewithkyrian-app
+  php:
     depends_on:
       - traefik

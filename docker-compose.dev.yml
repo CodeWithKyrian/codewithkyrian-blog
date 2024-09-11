@@ -13,7 +13,7 @@ services:
       - ./.infrastructure/conf/traefik/dev/traefik-certs.yml:/traefik-certs.yml
       - ./.infrastructure/conf/traefik/dev/certificates/:/certificates
 
-  app:
+  php:
     build:
       target: development
       args:
