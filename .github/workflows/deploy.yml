@@ -40,7 +40,7 @@ jobs:
           $DOCKER_COMPOSE_CMD \
           run \
           php \
-          composer install --optimize-autoloader --no-interaction --no-progress --no-ansi
+          composer install --optimize-autoloader --no-interaction --no-progress --no-ansi --ignore-platform-req=ext-exif
 
       - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
         name: Upload composer cache
