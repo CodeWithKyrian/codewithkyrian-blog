@@ -11,11 +11,12 @@ env:
   SPIN_IMAGE_DOCKERFILE: codewithkyrian/app:latest
 
 jobs:
+
   composer-build:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4 
+        uses: actions/checkout@v4
 
       - name: Restore composer cache (if available)
         id: composer-vendor-restore
@@ -51,7 +52,7 @@ jobs:
   node-build:
     runs-on: ubuntu-22.04
     needs: composer-build
-    steps: 
+    steps:
       - name: Restore composer cache
         uses: actions/cache/restore@v4
         id: composer-cache-restore
@@ -70,7 +71,7 @@ jobs:
         with:
           path: node_modules/
           key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
-         
+
       - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
         name: Run "bun install"
         run: |
@@ -106,7 +107,7 @@ jobs:
           path: public/build/
           key: ${{ runner.os }}-public-build-${{ github.sha }}
 
-   build:
+  docker-build:
     runs-on: ubuntu-22.04
     needs:
       - composer-build
@@ -134,7 +135,7 @@ jobs:
           path: public/build/
           fail-on-cache-miss: true
           key: ${{ runner.os }}-public-build-${{ github.sha }}
-      
+
       - name: Check public/build cache
         if: steps.public-build-restore.outputs.cache-hit != 'true'
         run: exit 1
@@ -146,9 +147,10 @@ jobs:
           registry: "ghcr.io"
           registry-username: "${{ github.actor }}"
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
-          
+
+
   deploy:
-    needs: build
+    needs: docker-build
     runs-on: ubuntu-24.04
     steps:
       - uses: serversideup/github-action-docker-swarm-deploy@v2
