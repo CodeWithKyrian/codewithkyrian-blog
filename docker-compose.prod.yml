@@ -11,7 +11,7 @@ services:
         protocol: tcp
         mode: host
     networks:
-      - web-public
+        - web-public
     deploy:
       update_config:
         parallelism: 1
@@ -21,38 +21,15 @@ services:
         constraints:
           - node.role==manager
     volumes:
-       # Mount the Docker socket as read-only so Traefik can listen to events
+      # Mount the Docker socket as read-only so Traefik can listen to events
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - certificates:/certificates
     configs:
       - source: traefik
         target: /etc/traefik/traefik.yml
 
-  ssh:
-    # We use an SSH image so we can securely tunnel into the Docker network with 
-    # tools like Sequel Pro, TablePlus, Sequel Ace, etc.
-    # Learn more how to secure your tunnel here: https://github.com/serversideup/docker-ssh
-    image: serversideup/docker-ssh
-    ports:
-      - target: 2222
-        published: 2222
-        mode: host
-    environment:
-      # Change the keys below to your own keys 
-      AUTHORIZED_KEYS: >
-        "# Start Keys
-         ssh-ed25519 1234567890abcdefghijklmnoqrstuvwxyz user-a
-         ssh-ed25519 abcdefghijklmnoqrstuvwxyz1234567890 user-b
-         # End Keys"
-      # Be sure to configure the allowed IP addresses too
-      ALLOWED_IPS: "AllowUsers *@127.0.0.1"
-    volumes:
-      - tunnel_ssh_host_keys:/etc/ssh/ssh_host_keys
-    networks:
-        - web-public
-
-  php:
-    image: {SPIN_IMAGE_DOCKERFILE} # 👈 Change this if you're not using `spin deploy`
+  app:
+    image: ${SPIN_IMAGE_DOCKERFILE} # 👈 Change this if you're not using `spin deploy`
     environment:
       PHP_OPCACHE_ENABLE: "1"
       AUTORUN_ENABLED: "true" # 👈 Remove this line if you don't want Laravel Automations
@@ -93,6 +70,30 @@ services:
         - "traefik.http.services.my-php-app.loadbalancer.healthcheck.interval=30s"
         - "traefik.http.services.my-php-app.loadbalancer.healthcheck.timeout=5s"
         - "traefik.http.services.my-php-app.loadbalancer.healthcheck.scheme=http"
+
+
+  # ssh:
+  #   # We use an SSH image so we can securely tunnel into the Docker network with 
+  #   # tools like Sequel Pro, TablePlus, Sequel Ace, etc.
+  #   # Learn more how to secure your tunnel here: https://github.com/serversideup/docker-ssh
+  #   image: serversideup/docker-ssh
+  #   ports:
+  #     - target: 2222
+  #       published: 2222
+  #       mode: host
+  #   environment:
+  #     # Change the keys below to your own keys 
+  #     AUTHORIZED_KEYS: >
+  #       "# Start Keys
+  #        ssh-ed25519 1234567890abcdefghijklmnoqrstuvwxyz user-a
+  #        ssh-ed25519 abcdefghijklmnoqrstuvwxyz1234567890 user-b
+  #        # End Keys"
+  #     # Be sure to configure the allowed IP addresses too
+  #     ALLOWED_IPS: "AllowUsers *@127.0.0.1"
+  #   volumes:
+  #     - tunnel_ssh_host_keys:/etc/ssh/ssh_host_keys
+  #   networks:
+  #       - web-public
 
 configs:
   traefik:

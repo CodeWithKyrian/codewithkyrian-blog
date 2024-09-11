@@ -5,10 +5,150 @@ on:
   push:
     branches:
       - main
+env:
+  DOCKER_COMPOSE_CMD: docker compose -f docker-compose.yml -f docker-compose.ci.yml
+  STACK_NAME: spin-production
+  SPIN_IMAGE_DOCKERFILE: codewithkyrian/app:latest
 
 jobs:
+  composer-build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4 
+
+      - name: Restore composer cache (if available)
+        id: composer-vendor-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: vendor/
+          key: ${{ runner.os }}-composer-vendor-${{ hashFiles('composer.lock') }}
+
+      - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
+        name: List the composer packages
+        continue-on-error: true
+        run: |
+          $DOCKER_COMPOSE_CMD \
+          run \
+          php \
+          composer show --locked
+
+      - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
+        name: Install Composer dependencies
+        run: |
+          $DOCKER_COMPOSE_CMD \
+          run \
+          php \
+          composer install --optimize-autoloader --no-interaction --no-progress --no-ansi
+
+      - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
+        name: Upload composer cache
+        uses: actions/cache/save@v4
+        with:
+          path: vendor/
+          key: ${{ runner.os }}-composer-vendor-${{ hashFiles('composer.lock') }}
+
+  node-build:
+    runs-on: ubuntu-22.04
+    needs: composer-build
+    steps: 
+      - name: Restore composer cache
+        uses: actions/cache/restore@v4
+        id: composer-cache-restore
+        with:
+          path: vendor/
+          fail-on-cache-miss: true
+          key: ${{ runner.os }}-composer-vendor-${{ hashFiles('composer.lock') }}
+
+      - name: Check composer cache
+        if: steps.composer-cache-restore.outputs.cache-hit != 'true'
+        run: exit 1
+
+      - name: Restore node_modules cache (if available)
+        id: node-modules-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+         
+      - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
+        name: Run "bun install"
+        run: |
+          $DOCKER_COMPOSE_CMD \
+          run \
+          bun \
+          bun install --frozen-lockfile
+
+      - name: Run "yarn build"
+        run: |
+          $DOCKER_COMPOSE_CMD \
+          run \
+          bun \
+          bun run build
+
+      - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
+        name: Upload node_modules cache
+        uses: actions/cache/save@v4
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+
+      - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
+        name: Upload node_modules cache
+        uses: actions/cache/save@v4
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+
+      - name: Upload public/build cache
+        uses: actions/cache/save@v4
+        with:
+          path: public/build/
+          key: ${{ runner.os }}-public-build-${{ github.sha }}
+
+   build:
+    runs-on: ubuntu-22.04
+    needs:
+      - composer-build
+      - node-build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore composer cache
+        uses: actions/cache/restore@v4
+        id: composer-cache-restore
+        with:
+          path: vendor/
+          fail-on-cache-miss: true
+          key: ${{ runner.os }}-composer-vendor-${{ hashFiles('composer.lock') }}
+
+      - name: Check composer cache
+        if: steps.composer-cache-restore.outputs.cache-hit != 'true'
+        run: exit 1
+
+      - name: Restore public/build cache
+        uses: actions/cache/restore@v4
+        id: public-build-restore
+        with:
+          path: public/build/
+          fail-on-cache-miss: true
+          key: ${{ runner.os }}-public-build-${{ github.sha }}
+      
+      - name: Check public/build cache
+        if: steps.public-build-restore.outputs.cache-hit != 'true'
+        run: exit 1
+
+      - name: Build Docker container
+        uses: serversideup/github-action-docker-build@v3
+        with:
+          tags: "${{ env.SPIN_IMAGE_DOCKERFILE }}"
+          registry: "ghcr.io"
+          registry-username: "${{ github.actor }}"
+          registry-token: "${{ secrets.GITHUB_TOKEN }}"
+          
   deploy:
-    # needs: build
+    needs: build
     runs-on: ubuntu-24.04
     steps:
       - uses: serversideup/github-action-docker-swarm-deploy@v2
@@ -18,6 +158,6 @@ jobs:
           registry: "ghcr.io"
           registry-username: "${{ github.actor }}"
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
-          stack_name: "${{ env.PROJECT_NAME }}"
+          stack_name: "${{ env.STACK_NAME }}"
           md5_file_path: "./.infrastructure/conf/traefik/prod/traefik.yml"
           md5_variable_name: "SPIN_MD5_HASH_TRAEFIK_YML"
