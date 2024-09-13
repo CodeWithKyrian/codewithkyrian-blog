@@ -8,7 +8,8 @@ on:
 env:
   DOCKER_COMPOSE_CMD: docker compose -f docker-compose.yml -f docker-compose.ci.yml
   STACK_NAME: spin-production
-  SPIN_IMAGE_DOCKERFILE: ghcr.io/codewithkyrian/app:latest
+  SPIN_IMAGE_DOCKERFILE: ghcr.io/codewithkyrian/blog:latest
+  SSH_DEPLOY_USER: deploy
 
 jobs:
 
@@ -143,26 +144,63 @@ jobs:
         if: steps.public-build-restore.outputs.cache-hit != 'true'
         run: exit 1
 
-      - name: Build Docker container
-        uses: serversideup/github-action-docker-build@v3
+      - name: 🔐 Login to GHCR
+        uses: docker/login-action@v3
         with:
-          tags: "${{ env.SPIN_IMAGE_DOCKERFILE }}"
-          dockerfile: Dockerfile
-          registry: "ghcr.io"
-          registry-username: "${{ github.actor }}"
-          registry-token: "${{ secrets.GITHUB_TOKEN }}"
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+
+      - name: ⚙️ Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🔨Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ env.SPIN_IMAGE_DOCKERFILE }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   deploy:
     needs: docker-build
     runs-on: ubuntu-24.04
     steps:
-      - uses: serversideup/github-action-docker-swarm-deploy@v2
+      - name: Prepare SSH configuration.
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+        shell: bash
+
+      - name: Add SSH key.
+        run: |
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          echo "${{ secrets.SSH_DEPLOY_PRIVATE_KEY }}" | tr -d '\r' | ssh-add -
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        shell: bash
+
+      - name: Use SSH keyscan to get the public key of the remote server.
+        run: |
+          ssh-keyscan -p 22 -H ${{ secrets.SSH_REMOTE_HOSTNAME }} >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+        shell: bash
+
+      - name: 🔐 Login to GHCR
+        uses: docker/login-action@v3
         with:
-          ssh_deploy_private_key: "${{ secrets.SSH_DEPLOY_PRIVATE_KEY }}"
-          ssh_remote_hostname: "${{ secrets.SSH_REMOTE_HOSTNAME }}"
-          registry: "ghcr.io"
-          registry-username: "${{ github.actor }}"
-          registry-token: "${{ secrets.GITHUB_TOKEN }}"
-          stack_name: "${{ env.STACK_NAME }}"
-          md5_file_path: "./.infrastructure/conf/traefik/prod/traefik.yml"
-          md5_variable_name: "SPIN_MD5_HASH_TRAEFIK_YML"
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+
+      - name: Run Docker Stack deployment via SSH.
+        run: |
+          docker --log-level debug -H ssh://${{ env.SSH_DEPLOY_USER }}@${{ secrets.SSH_REMOTE_HOSTNAME }}:22 \
+            stack deploy --detach=false --with-registry-auth \
+            -c docker-compose.yml -c docker-compose.prod.yml \
+            ${{ STACK_NAME }} \
+            --prune
+        shell: bash
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
