@@ -199,7 +199,7 @@ jobs:
           docker --log-level debug -H ssh://${{ env.SSH_DEPLOY_USER }}@${{ secrets.SSH_REMOTE_HOSTNAME }}:22 \
             stack deploy --detach=false --with-registry-auth \
             -c docker-compose.yml -c docker-compose.prod.yml \
-            ${{ STACK_NAME }} \
+            ${{ env.STACK_NAME }} \
             --prune
         shell: bash
         env:
