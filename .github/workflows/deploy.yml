@@ -9,6 +9,7 @@ env:
   DOCKER_COMPOSE_CMD: docker compose -f docker-compose.yml -f docker-compose.ci.yml
   STACK_NAME: spin-production
   SPIN_IMAGE_DOCKERFILE: ghcr.io/codewithkyrian/blog:latest
+  SPIN_APP_DOMAIN: codewithkyrian.com
 
 jobs:
 
