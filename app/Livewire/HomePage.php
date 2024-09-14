@@ -44,7 +44,7 @@ class HomePage extends Component
     //  * @return LengthAwarePaginator|Collection<int, Post>
      * @throws BindingResolutionException
      */
-    public function paginate($query, $perFirstPage = null, $perPage = null, array|string $columns = ['*'], string $pageName = 'page', ?int $page = null) : LengthAwarePaginator
+    public function paginate($query, $perFirstPage = null, $perPage = null, array|string $columns = ['*'], string $pageName = 'page', ?int $page = null): LengthAwarePaginator
     {
         $page = $page ?: Paginator::resolveCurrentPage($pageName);
 
@@ -66,14 +66,14 @@ class HomePage extends Component
             : $query->model->newCollection();
 
         return Container::getInstance()->makeWith(LengthAwarePaginator::class, [
-            'items'       => $results,
-            'total'       => $total,
-            'perPage'     => $realPerPage,
+            'items' => $results,
+            'total' => $total,
+            'perPage' => $realPerPage,
             'currentPage' => $page,
-            'options'     => [
-                'path'         => Paginator::resolveCurrentPath(),
-                'pageName'     => $pageName,
-                'perPage'      => $perPage,
+            'options' => [
+                'path' => Paginator::resolveCurrentPath(),
+                'pageName' => $pageName,
+                'perPage' => $perPage,
                 'perFirstPage' => $perFirstPage,
             ],
         ]);

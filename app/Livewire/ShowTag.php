@@ -10,14 +10,14 @@ class ShowTag extends Component
 {
     public Tag $tag;
 
-    public function mount() : void
+    public function mount(): void
     {
         $this->tag->load(['posts' => ['category', 'tags']]);
     }
 
-    public function render() : View
+    public function render(): View
     {
         return view('livewire.show-tag')
-            ->title($this->tag->name . ' Posts');
+            ->title($this->tag->name.' Posts');
     }
 }

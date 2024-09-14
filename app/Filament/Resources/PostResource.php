@@ -5,14 +5,11 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PostResource\Pages;
 use App\Models\Post;
 use Filament\Forms;
+use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Components\Wizard;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\HtmlString;
 
 class PostResource extends Resource
 {
@@ -41,7 +38,7 @@ class PostResource extends Resource
                                 ->maxLength(65535),
                             Forms\Components\SpatieMediaLibraryFileUpload::make('thumbnail')
                                 ->collection('thumbnail')
-                                ->panelAspectRatio('16:9')
+                                ->panelAspectRatio('16:9'),
                         ])
                         ->icon('heroicon-o-adjustments-horizontal')
                         ->columns(2),
@@ -58,7 +55,7 @@ class PostResource extends Resource
                             Forms\Components\TagsInput::make('keywords')
                                 ->placeholder('New Keyword'),
                             Forms\Components\Select::make('tags')
-                                ->relationship('tags','name')
+                                ->relationship('tags', 'name')
                                 ->preload()
                                 ->multiple()
                                 ->required(),
@@ -77,7 +74,7 @@ class PostResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('thumbnail')
-                ->collection('thumbnail'),
+                    ->collection('thumbnail'),
                 Tables\Columns\TextColumn::make('title')
                     ->wrap()
                     ->searchable(),
@@ -88,8 +85,8 @@ class PostResource extends Resource
                     ->icon('heroicon-o-clock')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('Status')
-                    ->getStateUsing(fn(Post $post) => $post->published_at == null ? 'draft' : 'published')
-                    ->color(fn(Post $post) => $post->published_at == null ? 'warning' : 'success')
+                    ->getStateUsing(fn (Post $post) => $post->published_at == null ? 'draft' : 'published')
+                    ->color(fn (Post $post) => $post->published_at == null ? 'warning' : 'success')
                     ->badge()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('published_at')
@@ -112,10 +109,10 @@ class PostResource extends Resource
                 Tables\Actions\Action::make('Preview')
                     ->hiddenLabel()
                     ->icon('heroicon-o-eye')
-                    ->url(fn(Post $record) => route('post.show', $record))
+                    ->url(fn (Post $record) => route('post.show', $record))
                     ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make()->hiddenLabel(),
-                Tables\Actions\DeleteAction::make()->hiddenLabel()
+                Tables\Actions\DeleteAction::make()->hiddenLabel(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

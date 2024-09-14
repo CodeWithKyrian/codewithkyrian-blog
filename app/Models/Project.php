@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\ProjectType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -29,13 +28,13 @@ class Project extends Model implements HasMedia
         'type' => ProjectType::class,
     ];
 
-     /**
+    /**
      * Return the url of the post's banner image
      */
     public function thumbnail(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->getFirstMediaUrl('thumbnail')
+            get: fn () => $this->getFirstMediaUrl('thumbnail')
         );
     }
 

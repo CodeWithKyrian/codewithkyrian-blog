@@ -20,17 +20,17 @@ class CodeTitlesExtension implements ExtensionInterface
     public function onDocumentParsed(DocumentParsedEvent $event): void
     {
         foreach ($event->getDocument()->iterator() as $node) {
-            if (!$node instanceof FencedCode && !$node instanceof IndentedCode) {
+            if (! $node instanceof FencedCode && ! $node instanceof IndentedCode) {
                 continue;
             }
 
             $info = $node->getInfo();
 
-            if (strpos($info, ':') !== false) {
+            if (str_contains($info, ':')) {
                 [$language, $title] = explode(':', $info, 2);
                 $node->setInfo($language);
 
-                $titleNode = new Paragraph();
+                $titleNode = new Paragraph;
                 $titleNode->data->set('attributes', ['class' => 'code-title']);
                 $titleNode->appendChild(new Text($title));
 

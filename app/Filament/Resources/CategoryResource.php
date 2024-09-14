@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CategoryResource extends Resource
 {
@@ -26,7 +23,7 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('parent_id')
-                    ->options(fn() => Category::pluck('title', 'id'))
+                    ->options(fn () => Category::pluck('title', 'id'))
                     ->nullable(),
                 Forms\Components\TextInput::make('title')
                     ->required()
@@ -61,7 +58,7 @@ class CategoryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -81,8 +78,8 @@ class CategoryResource extends Resource
     {
         return [
             'index' => Pages\ListCategories::route('/'),
-//            'create' => Pages\CreateCategory::route('/create'),
-//            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            //            'create' => Pages\CreateCategory::route('/create'),
+            //            'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
     }
 }

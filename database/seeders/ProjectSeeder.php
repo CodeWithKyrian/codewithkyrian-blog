@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Enums\ProjectType;
 use App\Models\Project;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ProjectSeeder extends Seeder
@@ -65,7 +64,7 @@ class ProjectSeeder extends Seeder
                 'name' => 'Vitani Farms',
                 'description' => 'A feature-rich e-commerce platform using Laravel,  featuring a seamless frontend and backend integration, an intuitive user interface to boost conversion and a secure payment gateway for smooth transactions.',
                 'technologies' => ['Laravel', 'Livewire'],
-                'url' => 'https://vitanifarms.com/', 
+                'url' => 'https://vitanifarms.com/',
                 'type' => ProjectType::REGULAR,
             ],
             [

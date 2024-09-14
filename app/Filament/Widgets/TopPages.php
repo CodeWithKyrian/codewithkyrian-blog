@@ -29,7 +29,7 @@ class TopPages extends BaseWidget
             ->actions([
                 Tables\Actions\Action::make('View')
                     ->icon('heroicon-o-eye')
-                    ->url(fn($record) => config('app.frontend_url') . $record->page)
+                    ->url(fn ($record) => config('app.frontend_url').$record->page)
                     ->openUrlInNewTab(),
             ]);
     }

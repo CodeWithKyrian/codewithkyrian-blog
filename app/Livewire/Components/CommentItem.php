@@ -10,11 +10,17 @@ use Livewire\Component;
 class CommentItem extends Component
 {
     public Comment $comment;
+
     public ?Comment $parent;
+
     public bool $allowReply = false;
+
     public bool $showReplies = false;
+
     public bool $isLiked = false;
+
     public bool $showReplyForm = false;
+
     public bool $isEditing = false;
 
     public function mount()
@@ -28,14 +34,14 @@ class CommentItem extends Component
 
     public function toggleReplies()
     {
-        $this->showReplies = !$this->showReplies;
+        $this->showReplies = ! $this->showReplies;
     }
 
     public function toggleLike()
     {
         $user = Auth::user();
 
-        if (!$user) {
+        if (! $user) {
             return;
         }
 
@@ -45,14 +51,14 @@ class CommentItem extends Component
             $this->comment->like($user);
         }
 
-        $this->isLiked = !$this->isLiked;
+        $this->isLiked = ! $this->isLiked;
         $this->comment->refresh();
         $this->comment->loadCount('likes');
     }
 
     public function toggleReplyForm()
     {
-        $this->showReplyForm = !$this->showReplyForm;
+        $this->showReplyForm = ! $this->showReplyForm;
         $this->isEditing = false;
     }
 
@@ -70,7 +76,9 @@ class CommentItem extends Component
     #[On('comment-created')]
     public function onCommentCreated($commentId, $parentId)
     {
-        if ($this->comment->id !== $parentId)  return;
+        if ($this->comment->id !== $parentId) {
+            return;
+        }
 
         $this->showReplyForm = false;
         $this->showReplies = true;
@@ -88,8 +96,8 @@ class CommentItem extends Component
     #[On('comment-deleted')]
     public function onCommentDeleted(int $id, ?int $parentId = null)
     {
-        if ($this->comment->id === $parentId) { 
-            $this->comment->replies->reject(fn($comment) => $comment->id === $id);
+        if ($this->comment->id === $parentId) {
+            $this->comment->replies->reject(fn ($comment) => $comment->id === $id);
         }
     }
 

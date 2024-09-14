@@ -11,8 +11,7 @@ class ProductionSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->create(['name' => 'Kyrian Obikwelu', 'email' => 'kyrianobikwelu@gmail.com',]);
-
+        User::factory()->create(['name' => 'Kyrian Obikwelu', 'email' => 'kyrianobikwelu@gmail.com']);
 
         $categories = [
             ['title' => 'Guides & Tutorials', 'slug' => 'guides-tutorials', 'description' => 'Embark on insightful journeys with our in-depth guides and tutorials. Explore step-by-step instructions, thoughtfully curated to help you master a diverse range of tech subjects.'],
@@ -50,7 +49,7 @@ class ProductionSeeder extends Seeder
             ['name' => 'Livewire', 'slug' => 'livewire', 'description' => 'Livewire is a full-stack framework for Laravel that enables developers to build dynamic and interactive web applications with minimal effort, using a reactive programming model.'],
             ['name' => 'Filament', 'slug' => 'filament', 'description' => 'Filament is a modern and elegant admin panel framework for Laravel that simplifies the process of building powerful and customizable admin interfaces.'],
             ['name' => 'TailwindCSS', 'slug' => 'tailwindcss', 'description' => 'TailwindCSS is a utility-first CSS framework that empowers developers to build custom designs with a highly customizable and responsive approach.'],
-        ];  
+        ];
 
         Tag::insert($tags);
     }

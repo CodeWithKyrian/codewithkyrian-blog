@@ -3,25 +3,25 @@
 namespace App\Filament\Pages;
 
 use Exception;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Pages\Page;
-use Filament\Pages\Concerns;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
+use Filament\Forms;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
 use Filament\Notifications\Notification;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\Rules\Password;
+use Filament\Pages\Page;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class EditProfile extends Page implements HasForms
 {
     use InteractsWithForms;
 
     protected static ?string $title = 'Profile';
+
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static ?string $navigationGroup = 'SETTINGS';
@@ -29,6 +29,7 @@ class EditProfile extends Page implements HasForms
     protected static string $view = 'filament.pages.edit-profile';
 
     public ?array $profileData = [];
+
     public ?array $passwordData = [];
 
     public function mount(): void
@@ -46,10 +47,10 @@ class EditProfile extends Page implements HasForms
 
     public function editProfileForm(Form $form): Form
     {
-        return  $form
+        return $form
             ->schema([
                 Forms\Components\Section::make('Profile Information')
-                ->aside() 
+                    ->aside()
                     ->description('Update your account\'s profile information and email address.')
                     ->schema([
                         Forms\Components\FileUpload::make('avatar_url')
@@ -71,7 +72,7 @@ class EditProfile extends Page implements HasForms
 
     public function editPasswordForm(Form $form): Form
     {
-        return  $form
+        return $form
             ->schema([
                 Forms\Components\Section::make('Update Password')
                     ->description('Ensure your account is using long, random password to stay secure.')
@@ -87,7 +88,7 @@ class EditProfile extends Page implements HasForms
                             ->required()
                             ->rule(Password::default())
                             ->autocomplete('new-password')
-                            ->dehydrateStateUsing(fn($state): string => Hash::make($state))
+                            ->dehydrateStateUsing(fn ($state): string => Hash::make($state))
                             ->live(debounce: 500)
                             ->same('passwordConfirmation')
                             ->revealable(),
@@ -110,6 +111,7 @@ class EditProfile extends Page implements HasForms
                 ->submit('editProfileForm'),
         ];
     }
+
     protected function getUpdatePasswordFormActions(): array
     {
         return [
@@ -125,21 +127,24 @@ class EditProfile extends Page implements HasForms
         $this->handleRecordUpdate($this->getUser(), $data);
         $this->sendSuccessNotification();
     }
+
     public function updatePassword(): void
     {
         $data = $this->editPasswordForm->getState();
         $this->handleRecordUpdate($this->getUser(), $data);
 
         if (request()->hasSession() && array_key_exists('password', $data)) {
-            request()->session()->put(['password_hash_' . Filament::getAuthGuard() => $data['password']]);
+            request()->session()->put(['password_hash_'.Filament::getAuthGuard() => $data['password']]);
         }
 
         $this->editPasswordForm->fill();
         $this->sendSuccessNotification();
     }
+
     private function handleRecordUpdate(Model $record, array $data): Model
     {
         $record->update($data);
+
         return $record;
     }
 
@@ -151,7 +156,7 @@ class EditProfile extends Page implements HasForms
             ->send();
     }
 
-    protected function getUser(): Authenticatable & Model
+    protected function getUser(): Authenticatable&Model
     {
         $user = Filament::auth()->user();
 

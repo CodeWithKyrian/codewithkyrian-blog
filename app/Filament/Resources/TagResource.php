@@ -9,8 +9,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TagResource extends Resource
 {
@@ -71,8 +69,8 @@ class TagResource extends Resource
     {
         return [
             'index' => Pages\ListTags::route('/'),
-//            'create' => Pages\CreateTag::route('/create'),
-//            'edit' => Pages\EditTag::route('/{record}/edit'),
+            //            'create' => Pages\CreateTag::route('/create'),
+            //            'edit' => Pages\EditTag::route('/{record}/edit'),
         ];
     }
 }

@@ -20,13 +20,12 @@ class Tag extends Model implements Sitemapable
      */
     protected $fillable = ['name', 'slug', 'description'];
 
-
     /**
      * Perform any actions required after the model boots.
      */
     protected static function booted(): void
     {
-        static::saving(fn(Tag $tag) => $tag->slug ??= Str::slug($tag->name));
+        static::saving(fn (Tag $tag) => $tag->slug ??= Str::slug($tag->name));
     }
 
     /**

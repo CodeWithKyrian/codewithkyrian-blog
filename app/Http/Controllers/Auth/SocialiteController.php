@@ -15,7 +15,7 @@ class SocialiteController extends Controller
 {
     public function login(Request $request, string $provider): RedirectResponse
     {
-        if (!in_array($provider, ['google', 'github'])) {
+        if (! in_array($provider, ['google', 'github'])) {
             return redirect()->back()->withErrors(['provider' => 'Invalid provider']);
         }
 
@@ -26,7 +26,7 @@ class SocialiteController extends Controller
 
     public function callback(Request $request, string $provider)
     {
-        if (!in_array($provider, ['google', 'github'])) {
+        if (! in_array($provider, ['google', 'github'])) {
             return redirect()->back()->withErrors(['provider' => 'Invalid provider']);
         }
 

@@ -84,6 +84,10 @@ jobs:
           bun \
           bun install --frozen-lockfile
 
+      - name: Fix permissions for node_modules # Bun has this weird bug where some packages' permission is messed up
+        run: |
+          chmod -R 755 node_modules
+
       - name: Run "bun build"
         run: |
           $DOCKER_COMPOSE_CMD \

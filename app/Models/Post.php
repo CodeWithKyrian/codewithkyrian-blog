@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -93,7 +92,6 @@ class Post extends Model implements HasMedia, Sitemapable
         return $this->hasMany(Comment::class);
     }
 
-   
     public function thumbnail()
     {
         return $this->morphOne(Media::class, 'model')->where('collection_name', 'thumbnail');
@@ -107,7 +105,10 @@ class Post extends Model implements HasMedia, Sitemapable
         return Attribute::make(
             get: function (): string {
                 $next = Post::where('id', ' < ', $this->id)->orderBy('id', 'asc')?->first();
-                if ($next == null) return '';
+                if ($next == null) {
+                    return '';
+                }
+
                 return route('home . post - view', $next);
             }
         );
@@ -121,7 +122,10 @@ class Post extends Model implements HasMedia, Sitemapable
         return Attribute::make(
             get: function (): string {
                 $previous = Post::where('id', ' > ', $this->id)->orderBy('id', 'asc')?->first();
-                if ($previous == null) return '';
+                if ($previous == null) {
+                    return '';
+                }
+
                 return route('home . post - view', $previous);
             }
         );
@@ -130,7 +134,7 @@ class Post extends Model implements HasMedia, Sitemapable
     public function isPublished(): Attribute
     {
         return Attribute::make(
-            get: fn(): bool => $this->published_at != null
+            get: fn (): bool => $this->published_at != null
         );
     }
 
@@ -158,8 +162,8 @@ class Post extends Model implements HasMedia, Sitemapable
             ->withResponsiveImages()
             ->useDisk('thumbnails')
             ->singleFile()
-            ->useFallbackUrl(url("img/no-thumbnail.png"))
-            ->useFallbackPath(public_path("img/no-thumbnail.png"));
+            ->useFallbackUrl(url('img/no-thumbnail.png'))
+            ->useFallbackPath(public_path('img/no-thumbnail.png'));
 
         $this
             ->addMediaCollection('post-images')
@@ -171,7 +175,7 @@ class Post extends Model implements HasMedia, Sitemapable
         $wordCount = str_word_count(strip_tags($this->body));
         $readTime = ceil($wordCount / 200);
 
-        return $readTime . ' min read';
+        return $readTime.' min read';
     }
 
     public function toSitemapTag(): Url|string|array

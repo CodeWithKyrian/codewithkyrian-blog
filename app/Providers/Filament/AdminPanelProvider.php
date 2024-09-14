@@ -13,7 +13,6 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -33,12 +32,12 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->profile()
-            ->userMenuItems([ 
-                'profile' => MenuItem::make()->url(fn (): string => EditProfile::getUrl())
-            ]) 
+            ->userMenuItems([
+                'profile' => MenuItem::make()->url(fn (): string => EditProfile::getUrl()),
+            ])
             ->colors([
-               'primary' => Color::Blue,
-                'gray' => Color::Neutral
+                'primary' => Color::Blue,
+                'gray' => Color::Neutral,
             ])
             ->databaseNotifications()
             ->font('Source Sans Pro')

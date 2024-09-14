@@ -13,7 +13,7 @@ class StatsOverview extends BaseWidget
     protected function getStats(): array
     {
         $aggregates = Http::withToken(config('services.plausible.key'))
-            ->get(config('services.plausible.base_url') . '/api/v1/stats/aggregate', [
+            ->get(config('services.plausible.base_url').'/api/v1/stats/aggregate', [
                 'site_id' => config('services.plausible.domain'),
                 'metrics' => 'visitors,pageviews,visit_duration',
                 'period' => '30d',
@@ -21,7 +21,7 @@ class StatsOverview extends BaseWidget
             ->json()['results'];
 
         $timeSeries = Http::withToken(config('services.plausible.key'))
-            ->get(config('services.plausible.base_url') . '/api/v1/stats/timeseries', [
+            ->get(config('services.plausible.base_url').'/api/v1/stats/timeseries', [
                 'site_id' => config('services.plausible.domain'),
                 'metrics' => 'visitors,pageviews,visit_duration',
                 'period' => '30d',

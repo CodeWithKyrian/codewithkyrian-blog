@@ -27,7 +27,6 @@ class CleanupPostImages extends Command
      */
     protected $description = 'Clean up unused images from the post-images disk';
 
-
     /**
      * Execute the console command.
      */
@@ -42,6 +41,7 @@ class CleanupPostImages extends Command
         $usedImages = Post::pluck('body')
             ->flatMap(function ($body) {
                 preg_match_all('/!\[.*?\]\((.*?)\)/', $body, $matches);
+
                 return $matches[1];
             })
             ->map(function ($path) {
@@ -60,8 +60,8 @@ class CleanupPostImages extends Command
             info("Deleted unused image: {$image}");
         }
 
-        note(count($unusedImages) . ' unused images were deleted.');
-        
+        note(count($unusedImages).' unused images were deleted.');
+
         outro('Post images cleanup completed.');
     }
 }

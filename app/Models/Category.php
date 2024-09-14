@@ -26,7 +26,7 @@ class Category extends Model implements Sitemapable
      */
     protected static function booted(): void
     {
-        static::saving(fn(Category $category) => $category->slug = Str::slug($category->title));
+        static::saving(fn (Category $category) => $category->slug = Str::slug($category->title));
     }
 
     /**

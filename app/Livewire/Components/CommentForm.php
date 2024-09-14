@@ -10,10 +10,15 @@ use Livewire\Component;
 class CommentForm extends Component
 {
     public int $postId;
+
     public ?Comment $parentComment = null;
+
     public ?Comment $editingComment = null;
+
     public string $content = '';
+
     public bool $isReply = false;
+
     public bool $isEditing = false;
 
     protected $rules = [

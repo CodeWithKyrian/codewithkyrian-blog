@@ -4,15 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Enums\ProjectType;
 use App\Filament\Resources\ProjectResource\Pages;
-use App\Filament\Resources\ProjectResource\RelationManagers;
 use App\Models\Project;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProjectResource extends Resource
 {
@@ -54,13 +51,13 @@ class ProjectResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('url')
-                    ->url(fn(string $state) => $state, true)
+                    ->url(fn (string $state) => $state, true)
                     ->icon('heroicon-o-arrow-top-right-on-square')
                     ->iconPosition('after')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('thumbnail'),
                 Tables\Columns\IconColumn::make('icon')
-                    ->icon(fn(string $state) => $state),
+                    ->icon(fn (string $state) => $state),
                 Tables\Columns\TextColumn::make('type')
                     ->badge()
                     ->sortable(),

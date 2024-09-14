@@ -17,8 +17,8 @@ class ListPosts extends ListRecords
         return [
             Actions\CreateAction::make(),
             ExportAction::make()
-                ->exporter(PostExporter::class)
-                // ->columnMapping(false)
+                ->exporter(PostExporter::class),
+            // ->columnMapping(false)
         ];
     }
 }

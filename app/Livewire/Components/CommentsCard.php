@@ -25,7 +25,7 @@ class CommentsCard extends Component
     #[On('comment-deleted')]
     public function onCommentDeleted(int $id)
     {
-        $this->comments = $this->comments->reject(fn($comment) => $comment->id === $id);
+        $this->comments = $this->comments->reject(fn ($comment) => $comment->id === $id);
     }
 
     #[On('comment-created')]
@@ -44,15 +44,15 @@ class CommentsCard extends Component
 
         $countsToLoad = [];
 
-        if (!isset($this->comments->first()->likes_count)) {
+        if (! isset($this->comments->first()->likes_count)) {
             $countsToLoad[] = 'likes';
         }
 
-        if (!isset($this->comments->first()->replies_count)) {
+        if (! isset($this->comments->first()->replies_count)) {
             $countsToLoad[] = 'replies';
         }
 
-        if (!empty($countsToLoad)) {
+        if (! empty($countsToLoad)) {
             $this->comments->loadCount($countsToLoad);
         }
 

@@ -38,10 +38,10 @@ class PostExporter extends Exporter
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your post export has completed and ' . number_format($export->successful_rows) . ' ' . str('row')->plural($export->successful_rows) . ' exported.';
+        $body = 'Your post export has completed and '.number_format($export->successful_rows).' '.str('row')->plural($export->successful_rows).' exported.';
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to export.';
+            $body .= ' '.number_format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to export.';
         }
 
         return $body;
@@ -49,6 +49,6 @@ class PostExporter extends Exporter
 
     public function getFileName(Export $export): string
     {
-        return "posts-" . now()->format('Y-m-d-H-i-s') . ".csv";
+        return 'posts-'.now()->format('Y-m-d-H-i-s').'.csv';
     }
 }

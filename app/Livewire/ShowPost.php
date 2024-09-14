@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Str;
 use App\Models\Post;
 use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\View\View;
@@ -12,7 +11,7 @@ class ShowPost extends Component
 {
     public Post $post;
 
-    public function mount() : void
+    public function mount(): void
     {
         $this->post->loadMissing(['category', 'thumbnail', 'tags']);
         $this->post->body = $this->parseMarkdown($this->post->body);
