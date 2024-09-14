@@ -84,11 +84,6 @@ jobs:
         name: Install NPM Dependencies
         run: bun install --frozen-lockfile
 
-      # Bun retains permission from package tarball which can be a problem in our case since we want to cache
-      # the node_modules folder - https://github.com/oven-sh/bun/issues/10331
-      - name: Fix permissions for node_modules # Bun has this weird bug where some packages' permission is messed up
-        run: sudo chmod -R $USER:$USER 644 node_modules
-
       - name: Build Frontend Assets
         run: bun run build
 
