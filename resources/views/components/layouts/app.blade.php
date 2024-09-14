@@ -19,7 +19,10 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <script defer data-domain="codewithkyrian.com" src="{{ config('services.plausible.tracking_url') }}"></script>
+    {{-- <script defer data-domain="codewithkyrian.com" src="{{ config('services.plausible.tracking_url') }}"></script> --}}
+    @if (config('app.env') === 'production')
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="1809c923-309b-45e2-8c77-b54e6f06c90d"></script>
+    @endif
 </head>
 
 <body class="bg-zinc-50 dark:bg-zinc-900" @scroll.window="sticky = window.scrollY > 100">
