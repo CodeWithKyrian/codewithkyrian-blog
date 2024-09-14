@@ -77,37 +77,27 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockb') }}
 
       - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
-        name: Run "bun install"
-        run: |
-          $DOCKER_COMPOSE_CMD \
-          run \
-          bun \
-          bun install --frozen-lockfile
+        name: Install Bun
+        uses: oven-sh/setup-bun@v1
 
+      - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
+        name: Install NPM Dependencies
+        run: bun install --frozen-lockfile
+
+      # Bun retains permission from package tarball which can be a problem in our case since we want to cache
+      # the node_modules folder - https://github.com/oven-sh/bun/issues/10331
       - name: Fix permissions for node_modules # Bun has this weird bug where some packages' permission is messed up
-        run: |
-          chmod -R 755 node_modules
+        run: sudo chmod -R $USER:$USER 644 node_modules
 
-      - name: Run "bun build"
-        run: |
-          $DOCKER_COMPOSE_CMD \
-          run \
-          bun \
-          bun run build
+      - name: Build Frontend Assets
+        run: bun run build
 
       - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
         name: Upload node_modules cache
         uses: actions/cache/save@v4
         with:
           path: node_modules/
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
-
-      - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
-        name: Upload node_modules cache
-        uses: actions/cache/save@v4
-        with:
-          path: node_modules/
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockb') }}
 
       - name: Upload public/build cache
         uses: actions/cache/save@v4
