@@ -62,16 +62,14 @@ jobs:
           path: node_modules/
           key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockb') }}
 
-      - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
-        name: Install Bun
+      - name: Install Bun
         uses: oven-sh/setup-bun@v1
 
       - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
         name: Install NPM Dependencies
         run: bun install --frozen-lockfile
 
-      - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
-        name: Build Frontend Assets
+      - name: Build Frontend Assets
         run: bun run build
 
       - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
