@@ -70,7 +70,8 @@ jobs:
         name: Install NPM Dependencies
         run: bun install --frozen-lockfile
 
-      - name: Build Frontend Assets
+      - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
+        name: Build Frontend Assets
         run: bun run build
 
       - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
