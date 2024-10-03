@@ -45,7 +45,7 @@ users:
   - username: kyrian
     name: Kyrian Obikwelu
     state: present
-    groups: ['adm','sudo']
+    groups: ['adm','sudo','docker']
     password: "$6$nCL/vGAqOlx3$JyLg730RpLbjxE7snt8GDvKYKLkgQ37dvRqVCPqWG3AOez2IZi.Ha/P95J4Lm.TWxpeclthXTSxPSkhxWHBCD1"
     shell: "/bin/bash"
     authorized_keys:
