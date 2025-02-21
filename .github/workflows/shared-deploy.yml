@@ -44,4 +44,4 @@ jobs:
       - name: Sync Public Directory
         run: |
           rsync -rv --rsh="ssh -p 65002" ${{ github.workspace }}/public/ u461887068@${{ secrets.SERVER_IP }}:domains/codewithkyrian.com/public_html
-          rsync -rv --rsh="ssh -p 65002" ${{ github.workspace }}/public/build/ u461887068@${{ secrets.SERVER_IP }}:domains/codewithkyrian.com/public/build
+          rsync -rv --rsh="ssh -p 65002" ${{ github.workspace }}/public/build/ u461887068@${{ secrets.SERVER_IP }}:domains/codewithkyrian.com/blog/public/build
