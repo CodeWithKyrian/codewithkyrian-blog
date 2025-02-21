@@ -4,11 +4,11 @@
 
 # Learn more about the Server Side Up PHP Docker Images at:
 # https://serversideup.net/open-source/docker-php/
-FROM serversideup/php:8.3-fpm-nginx-alpine AS base
+FROM serversideup/php:8.3-fpm-nginx AS base
 
 ## Uncomment if you need to install additional PHP extensions
 USER root
-RUN install-php-extensions intl
+RUN install-php-extensions intl ffi
 
 ############################################
 # Development Image
@@ -28,7 +28,7 @@ USER root
 RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID  && \
     docker-php-serversideup-set-file-permissions --owner $USER_ID:$GROUP_ID --service nginx
 
-# Drop privileges back to www-data    
+# Drop privileges back to www-data
 USER www-data
 
 ############################################
