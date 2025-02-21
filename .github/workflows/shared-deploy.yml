@@ -35,7 +35,7 @@ jobs:
               PubkeyAcceptedAlgorithms +ssh-rsa" > ~/.ssh/config
           chmod 600 ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa.pub
-          ssh-keyscan -p 21098 ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+          ssh-keyscan -p 65002 ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: Run Deploy Script
         run: |
