@@ -48,7 +48,7 @@ class HomePage extends Component
     {
         $page = $page ?: Paginator::resolveCurrentPage($pageName);
 
-        $perPage = $perPage ?: $query->model->getPerPage();
+        $perPage = $perPage ?: $query->getModel()->getPerPage();
         $perFirstPage = $perFirstPage ?: $perPage;
 
         $skip = match ($page) {
@@ -63,7 +63,7 @@ class HomePage extends Component
 
         $results = ($total = $query->toBase()->getCountForPagination())
             ? $query->offset($skip)->limit($realPerPage)->get($columns)
-            : $query->model->newCollection();
+            : $query->getModel()->newCollection();
 
         return Container::getInstance()->makeWith(LengthAwarePaginator::class, [
             'items' => $results,
