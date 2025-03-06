@@ -19,7 +19,7 @@
         "shuvroroy/filament-spatie-laravel-backup": "^2.2",
         "spatie/laravel-medialibrary": "^11.9",
         "spatie/laravel-sitemap": "^7.2",
-        "torchlight/torchlight-commonmark": "dev-main"
+        "tool5/torchlight-commonmark": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.1",
