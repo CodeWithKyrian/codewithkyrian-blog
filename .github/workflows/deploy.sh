@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Change to the project directory.
-cd domains/codewithkyrian.com
+cd domains/codewithkyrian.com/blog
 
 # Pull the latest changes from the git repository
 git pull origin main
