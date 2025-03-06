@@ -76,12 +76,6 @@
             "codewithkyrian/platform-package-installer": true
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/codewithkyrian/torchlight-commonmark-php.git"
-        }
-    ],
     "minimum-stability": "stable",
     "prefer-stable": true
 }
