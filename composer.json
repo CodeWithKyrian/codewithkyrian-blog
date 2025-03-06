@@ -19,7 +19,7 @@
         "shuvroroy/filament-spatie-laravel-backup": "^2.2",
         "spatie/laravel-medialibrary": "^11.9",
         "spatie/laravel-sitemap": "^7.2",
-        "torchlight/torchlight-commonmark": "dev-patch-1"
+        "torchlight/torchlight-commonmark": "dev-main"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.1",
@@ -79,7 +79,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/dasundev/torchlight-commonmark-php.git"
+            "url": "https://github.com/codewithkyrian/torchlight-commonmark-php.git"
         }
     ],
     "minimum-stability": "stable",
