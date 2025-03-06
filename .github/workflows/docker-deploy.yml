@@ -1,0 +1,163 @@
+name: 🛠️ Build and Deploy to Production
+
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - main
+env:
+  STACK_NAME: spin-production
+  SPIN_IMAGE_DOCKERFILE: ghcr.io/codewithkyrian/blog:latest
+  SPIN_APP_DOMAIN: codewithkyrian.com
+
+jobs:
+
+  composer-build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: intl
+
+      - name: Restore composer cache (if available)
+        id: composer-vendor-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: vendor/
+          key: ${{ runner.os }}-composer-vendor-${{ hashFiles('composer.lock') }}
+
+      - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
+        name: Install Composer dependencies
+        run: composer install --optimize-autoloader --no-interaction --no-progress --no-ansi --ignore-platform-req=ext-exif
+
+      - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
+        name: Upload composer cache
+        uses: actions/cache/save@v4
+        with:
+          path: vendor/
+          key: ${{ runner.os }}-composer-vendor-${{ hashFiles('composer.lock') }}
+
+  node-build:
+    runs-on: ubuntu-22.04
+    needs: composer-build
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Restore composer cache
+        uses: actions/cache/restore@v4
+        id: composer-cache-restore
+        with:
+          path: vendor/
+          fail-on-cache-miss: true
+          key: ${{ runner.os }}-composer-vendor-${{ hashFiles('composer.lock') }}
+
+      - name: Check composer cache
+        if: steps.composer-cache-restore.outputs.cache-hit != 'true'
+        run: exit 1
+
+      - name: Restore node_modules cache (if available)
+        id: node-modules-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockb') }}
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+
+      - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
+        name: Install NPM Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build Frontend Assets
+        run: bun run build
+
+      - if: ${{ steps.node-modules-restore.outputs.cache-hit != 'true' }}
+        name: Upload node_modules cache
+        uses: actions/cache/save@v4
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockb') }}
+
+      - name: Upload public/build cache
+        uses: actions/cache/save@v4
+        with:
+          path: public/build/
+          key: ${{ runner.os }}-public-build-${{ github.sha }}
+
+  docker-build:
+    runs-on: ubuntu-22.04
+    needs:
+      - composer-build
+      - node-build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore composer cache
+        uses: actions/cache/restore@v4
+        id: composer-cache-restore
+        with:
+          path: vendor/
+          fail-on-cache-miss: true
+          key: ${{ runner.os }}-composer-vendor-${{ hashFiles('composer.lock') }}
+
+      - name: Check composer cache
+        if: steps.composer-cache-restore.outputs.cache-hit != 'true'
+        run: exit 1
+
+      - name: Restore public/build cache
+        uses: actions/cache/restore@v4
+        id: public-build-restore
+        with:
+          path: public/build/
+          fail-on-cache-miss: true
+          key: ${{ runner.os }}-public-build-${{ github.sha }}
+
+      - name: Check public/build cache
+        if: steps.public-build-restore.outputs.cache-hit != 'true'
+        run: exit 1
+
+      - name: Create .env file from secret
+        run: |
+          echo "${{ secrets.ENV_PRODUCTION_BASE64 }}" | base64 -d > .env
+
+      - name: 🔐 Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+
+      - name: ⚙️ Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🔨Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ env.SPIN_IMAGE_DOCKERFILE }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    needs: docker-build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: serversideup/github-action-docker-swarm-deploy@v2
+        with:
+          ssh_deploy_private_key: "${{ secrets.SSH_DEPLOY_PRIVATE_KEY }}"
+          ssh_remote_hostname: "${{ secrets.SSH_REMOTE_HOSTNAME }}"
+          registry: "ghcr.io"
+          registry-username: "${{ github.actor }}"
+          registry-token: "${{ secrets.GITHUB_TOKEN }}"
+          stack_name: "${{ env.STACK_NAME }}"
+          md5_file_path: "./.infrastructure/conf/traefik/prod/traefik.yml"
+          md5_variable_name: "SPIN_MD5_HASH_TRAEFIK_YML"
