@@ -16,6 +16,3 @@ php artisan db:seed
 
 echo "Optimizing Filament..."
 php artisan filament:optimize
-
-echo "Generate API docs.."
-php artisan scribe:generate
