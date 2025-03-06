@@ -12,7 +12,7 @@ echo "Running migrations..."
 php artisan migrate --force
 
 echo "Running seeder..."
-php artisan db:seed
+php artisan db:seed --class=ProductionSeeder --force
 
 echo "Optimizing Filament..."
 php artisan filament:optimize
