@@ -1,7 +1,26 @@
+FROM oven/bun:1.2.4-alpine AS frontend-build
+
+# Set working directory
+WORKDIR /app
+
+# Copy application code
+COPY . .
+
+# Build frontend assets
+RUN bun install && \
+    bun run build
+
+
+
+# Main image
 FROM richarvey/nginx-php-fpm:3.1.6
 
+# Copy application code
 COPY . .
 #HR>BA9|6s
+
+# Copy built assets from frontend build stage
+COPY --from=frontend-build /app/public/build/ /var/www/html/public/build/
 
 # Image config
 ENV SKIP_COMPOSER 1
