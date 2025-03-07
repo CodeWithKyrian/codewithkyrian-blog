@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -44,11 +45,11 @@ class HomePage extends Component
     //  * @return LengthAwarePaginator|Collection<int, Post>
      * @throws BindingResolutionException
      */
-    public function paginate($query, $perFirstPage = null, $perPage = null, array|string $columns = ['*'], string $pageName = 'page', ?int $page = null): LengthAwarePaginator
+    public function paginate(Builder $query, $perFirstPage = null, $perPage = null, array|string $columns = ['*'], string $pageName = 'page', ?int $page = null): LengthAwarePaginator
     {
         $page = $page ?: Paginator::resolveCurrentPage($pageName);
 
-        $perPage = $perPage ?: $query->model->getPerPage();
+        $perPage = $perPage ?: $query->getModel()->getPerPage();
         $perFirstPage = $perFirstPage ?: $perPage;
 
         $skip = match ($page) {
@@ -63,7 +64,7 @@ class HomePage extends Component
 
         $results = ($total = $query->toBase()->getCountForPagination())
             ? $query->offset($skip)->limit($realPerPage)->get($columns)
-            : $query->model->newCollection();
+            : $query->getModel()->newCollection();
 
         return Container::getInstance()->makeWith(LengthAwarePaginator::class, [
             'items' => $results,
