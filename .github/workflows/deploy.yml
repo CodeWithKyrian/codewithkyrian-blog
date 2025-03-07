@@ -2,9 +2,10 @@ name: 🛠️ Build and Deploy to Production
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+#  push:
+#    branches:
+#      - main
+
 env:
   STACK_NAME: spin-production
   SPIN_IMAGE_DOCKERFILE: ghcr.io/codewithkyrian/blog:latest
