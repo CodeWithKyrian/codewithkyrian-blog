@@ -64,7 +64,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     public function avatarUrl(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Storage::url($value) ?? 'https://placehold.co/150',
+            get: fn ($value, $attributes) => Storage::url($attributes['avatar']) ?? 'https://placehold.co/150',
         );
     }
 
