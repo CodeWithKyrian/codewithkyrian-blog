@@ -44,7 +44,6 @@ class Project extends Model implements HasMedia
 
         $this
             ->addMediaCollection('thumbnail')
-            ->useDisk('thumbnails')
             ->singleFile()
             ->useFallbackUrl("https://placehold.co/600x1000?text={$name}");
     }
