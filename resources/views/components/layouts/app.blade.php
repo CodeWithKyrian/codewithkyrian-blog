@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-cloak x-data="{ darkMode: false, sticky: false, showNav: false }"
+    x-bind:class="{ 'dark': darkMode }" x-init="if (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        localStorage.setItem('darkMode', JSON.stringify(true));
+    }
+    darkMode = JSON.parse(localStorage.getItem('darkMode'));
+    $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))">
 
 <head>
     <meta charset="utf-8">
@@ -19,12 +24,7 @@
     {{-- @endif --}}
 </head>
 
-<body class="bg-zinc-50 dark:bg-zinc-900" @scroll.window="sticky = window.scrollY > 100" x-cloak x-data="{ darkMode: false, sticky: false, showNav: false }"
-      x-bind:class="{ 'dark': darkMode }" x-init="if (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        localStorage.setItem('darkMode', JSON.stringify(true));
-    }
-    darkMode = JSON.parse(localStorage.getItem('darkMode'));
-    $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))">
+<body class="bg-zinc-50 dark:bg-zinc-900" @scroll.window="sticky = window.scrollY > 100">
 
     <header class="top-0 z-[100]" :class="{ 'sticky animate-[slideDown_0.3s_ease-out]': sticky }">
         <nav class="relative backdrop-blur border-b border-zinc-200 px-6 lg:px-12 py-2.5 dark:border-zinc-700/60"
