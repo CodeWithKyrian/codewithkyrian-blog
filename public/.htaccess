@@ -7,7 +7,7 @@
 
     # Proxy the Umami script
     RewriteCond %{REQUEST_URI} ^/um-script\.js$ [NC]
-    RewriteRule .* https://cloud.umami.is/script.js [P,L]
+    RewriteRule .* http://cloud.umami.is/script.js [P,L]
 
 
     # Handle Authorization Header
