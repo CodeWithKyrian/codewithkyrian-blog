@@ -37,6 +37,7 @@ class PostResource extends Resource
                                 ->rows(10)
                                 ->maxLength(65535),
                             Forms\Components\SpatieMediaLibraryFileUpload::make('thumbnail')
+                                ->directory('thumbnails')
                                 ->collection('thumbnail')
                                 ->panelAspectRatio('16:9'),
                         ])
@@ -46,7 +47,7 @@ class PostResource extends Resource
                         ->schema([
                             Forms\Components\MarkdownEditor::make('body')
                                 ->hiddenLabel()
-                                ->fileAttachmentsDisk('post-images')
+                                ->fileAttachmentsDirectory('post-images')
                                 ->required(),
                         ])
                         ->icon('heroicon-o-newspaper'),

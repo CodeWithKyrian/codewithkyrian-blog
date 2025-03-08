@@ -160,14 +160,12 @@ class Post extends Model implements HasMedia, Sitemapable
         $this
             ->addMediaCollection('thumbnail')
             ->withResponsiveImages()
-            ->useDisk('thumbnails')
             ->singleFile()
             ->useFallbackUrl(url('img/no-thumbnail.png'))
             ->useFallbackPath(public_path('img/no-thumbnail.png'));
 
         $this
-            ->addMediaCollection('post-images')
-            ->useDisk('post-images');
+            ->addMediaCollection('post-images');
     }
 
     public function estimateReadTime(): string
