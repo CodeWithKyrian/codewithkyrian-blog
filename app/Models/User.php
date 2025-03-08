@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements FilamentUser, HasAvatar
 {
@@ -63,7 +64,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     public function avatar(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ?? 'https://placehold.co/150',
+            get: fn ($value) => Storage::url($value) ?? 'https://placehold.co/150',
         );
     }
 
