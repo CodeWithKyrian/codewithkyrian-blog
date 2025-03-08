@@ -53,7 +53,7 @@ class EditProfile extends Page implements HasForms
                     ->aside()
                     ->description('Update your account\'s profile information and email address.')
                     ->schema([
-                        Forms\Components\FileUpload::make('avatar_url')
+                        Forms\Components\FileUpload::make('avatar')
                             ->label('Avatar')
                             ->avatar()
                             ->imageEditor()
