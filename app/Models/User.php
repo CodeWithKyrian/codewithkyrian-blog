@@ -61,7 +61,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return $this->hasMany(Comment::class);
     }
 
-    public function avatar(): Attribute
+    public function avatarUrl(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => Storage::url($value) ?? 'https://placehold.co/150',
@@ -75,6 +75,6 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
 
     public function getFilamentAvatarUrl(): ?string
     {
-        return $this->avatar;
+        return $this->avatar_url;
     }
 }
