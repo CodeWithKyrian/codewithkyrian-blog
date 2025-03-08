@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build"
+    "build": "vite build",
+        "heroku-postbuild": "vite build"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
