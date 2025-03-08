@@ -28,8 +28,10 @@ USER root
 RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID  && \
     docker-php-serversideup-set-file-permissions --owner $USER_ID:$GROUP_ID --service nginx
 
-# Drop privileges back to www-data    
+# Drop privileges back to www-data
 USER www-data
+
+COPY --chown=www-data:www-data ./.infrastructure/conf/nginx/umami-proxy.conf /etc/nginx/server-opts.d/umami-proxy.conf
 
 ############################################
 # CI image
@@ -49,6 +51,7 @@ RUN echo "user = www-data" >> /usr/local/etc/php-fpm.d/docker-php-serversideup-p
 FROM base AS deploy
 COPY --chown=www-data:www-data . /var/www/html
 COPY --chown=www-data:www-data ./.infrastructure/conf/nginx/fastcgi_params /etc/nginx/fastcgi_params
+COPY --chown=www-data:www-data ./.infrastructure/conf/nginx/umami-proxy.conf /etc/nginx/server-opts.d/umami-proxy.conf
 
 # Create the SQLite directory and set the owner to www-data (remove this if you're not using SQLite)
 RUN mkdir -p /var/www/html/.infrastructure/volume_data/sqlite/ && \
