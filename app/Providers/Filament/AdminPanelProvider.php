@@ -47,11 +47,21 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+//                Pages\Dashboard::class,
+            ])
+            ->widgets([
+                \Schmeits\FilamentUmami\Widgets\UmamiWidgetStatsGrouped::class,
+                \Schmeits\FilamentUmami\Widgets\UmamiWidgetTableGroupedPages::class,
+                \Schmeits\FilamentUmami\Widgets\UmamiWidgetTableGroupedGeo::class,
+                \Schmeits\FilamentUmami\Widgets\UmamiWidgetGraphPageViews::class,
+                \Schmeits\FilamentUmami\Widgets\UmamiWidgetGraphSessions::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->renderHook('panels::auth.login.form.after', fn () => view('filament.auth.socialite.github'))
-            ->plugin(FilamentSpatieLaravelBackupPlugin::make()->usingPage(Backups::class))
+            ->plugins([
+                FilamentSpatieLaravelBackupPlugin::make()->usingPage(Backups::class),
+                \Schmeits\FilamentUmami\FilamentUmamiPlugin::make()
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
