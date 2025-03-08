@@ -21,7 +21,11 @@
                 <div class="flex mt-4 space-x-8 md:justify-start">
                     <a href="https://linkedin.com/in/kyrian-obikwelu" target="_blank" rel="noopener noreferrer"
                         class="transition-colors duration-300 text-zinc-600 hover:text-blue-500 dark:text-zinc-400 dark:hover:text-blue-400">
-                        @svg('si-linkedin', 'size-4')
+{{--                        @svg('si-linkedin', 'size-4')--}}
+                        <svg class="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M5.372 24H.396V7.976h4.976V24ZM2.882 5.79C1.29 5.79 0 4.474 0 2.883a2.882 2.882 0 1 1 5.763 0c0 1.59-1.29 2.909-2.881 2.909ZM23.995 24H19.03v-7.8c0-1.86-.038-4.243-2.587-4.243-2.587 0-2.984 2.02-2.984 4.109V24H8.49V7.976h4.772v2.186h.07c.664-1.259 2.287-2.587 4.708-2.587 5.035 0 5.961 3.316 5.961 7.623V24h-.005Z" />
+                        </svg>
                     </a>
                     <a href="mailto:kyrianobikwelu@gmail.com"
                         class="transition-colors duration-300 text-zinc-600 hover:text-red-500 dark:text-zinc-400 dark:hover:text-red-400">
@@ -252,7 +256,11 @@
                     </a>
                     <a href="https://linkedin.com/in/kyrian-obikwelu" target="_blank" rel="noopener noreferrer"
                         class="inline-flex items-center px-6 py-3 text-base font-medium text-white transition duration-150 ease-in-out bg-blue-800 border border-transparent rounded-md hover:bg-blue-700">
-                        @svg('si-linkedin', 'w-5 h-5 mr-2')
+{{--                        @svg('si-linkedin', 'w-5 h-5 mr-2')--}}
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M5.372 24H.396V7.976h4.976V24ZM2.882 5.79C1.29 5.79 0 4.474 0 2.883a2.882 2.882 0 1 1 5.763 0c0 1.59-1.29 2.909-2.881 2.909ZM23.995 24H19.03v-7.8c0-1.86-.038-4.243-2.587-4.243-2.587 0-2.984 2.02-2.984 4.109V24H8.49V7.976h4.772v2.186h.07c.664-1.259 2.287-2.587 4.708-2.587 5.035 0 5.961 3.316 5.961 7.623V24h-.005Z" />
+                        </svg>
                         Connect on LinkedIn
                     </a>
                 </div>
