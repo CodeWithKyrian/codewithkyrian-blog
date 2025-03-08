@@ -23,6 +23,8 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Hidden::make('published_at'),
+                    
                 Wizard::make([
                     Wizard\Step::make('Title Details')
                         ->schema([
@@ -60,8 +62,6 @@ class PostResource extends Resource
                                 ->preload()
                                 ->multiple()
                                 ->required(),
-                            Forms\Components\DatePicker::make('published_at')
-                                ->native(false),
                         ])
                         ->icon('heroicon-o-globe-alt'),
                 ])
