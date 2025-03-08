@@ -16,7 +16,7 @@
         "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
         "league/flysystem-aws-s3-v3": "^3.0",
-        "livewire/livewire": "^3.5",
+        "livewire/livewire": "3.5.18",
         "shuvroroy/filament-spatie-laravel-backup": "^2.2",
         "spatie/laravel-medialibrary": "^11.9",
         "spatie/laravel-sitemap": "^7.2",
