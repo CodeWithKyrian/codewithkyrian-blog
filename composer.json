@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "ext-gd": "*",
         "calebporzio/sushi": "^2.5",
         "codeat3/blade-simple-icons": "^5.7",
         "filament/filament": "^3.2",
