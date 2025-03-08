@@ -179,7 +179,7 @@ class Post extends Model implements HasMedia, Sitemapable
     public function toSitemapTag(): Url|string|array
     {
         return Url::create(route('post.show', $this))
-            ->addImage($this->thumbnail)
+            ->addImage($this->thumbnail->getFullUrl())
             ->setLastModificationDate($this->updated_at)
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
             ->setPriority(0.8);
