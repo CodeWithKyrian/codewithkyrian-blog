@@ -5,9 +5,9 @@
 
     RewriteEngine On
 
-    # Proxy the Umami script
+    # Route /um-script.js to our PHP proxy
     RewriteCond %{REQUEST_URI} ^/um-script\.js$ [NC]
-    RewriteRule .* http://cloud.umami.is/script.js [P,L]
+    RewriteRule .* /um-script.js.php [L]
 
 
     # Handle Authorization Header
