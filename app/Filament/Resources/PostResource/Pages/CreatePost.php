@@ -7,6 +7,7 @@ use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class CreatePost extends CreateRecord
 {
@@ -21,15 +22,15 @@ class CreatePost extends CreateRecord
                 ->icon('heroicon-o-document')
                 ->action(function (): void {
                     $this->data['published_at'] = null;
-                    
+
                     $this->create();
-                    
+
                     Notification::make()
                         ->title('Post saved as draft!')
                         ->success()
                         ->send();
                 }),
-                
+
             Actions\Action::make('publish')
                 ->label('Publish')
                 ->color('success')
@@ -43,9 +44,9 @@ class CreatePost extends CreateRecord
                 ])
                 ->action(function (array $data): void {
                     $this->data['published_at'] = $data['published_at'];
-                    
+
                     $this->create();
-                    
+
                     Notification::make()
                         ->title('Post published successfully!')
                         ->success()
@@ -54,12 +55,18 @@ class CreatePost extends CreateRecord
         ];
     }
 
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['user_id'] = Auth::id();
+
+        return $data;
+    }
 
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
     }
-    
+
     protected function getCreatedNotificationTitle(): ?string
     {
         // This will be overridden by our custom notifications
