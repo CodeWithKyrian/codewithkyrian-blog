@@ -44,7 +44,7 @@
 
             <!-- Body -->
             <div id="postContent"
-                class="max-w-full mb-4 prose break-words dark:prose-invert md:prose-md prose-img:rounded-md text-zinc-700 dark:text-zinc-300">
+                class="mb-4 max-w-full break-words prose md:prose-lg lg:prose-xl dark:prose-invert prose-img:rounded-md text-zinc-700 dark:text-zinc-300">
                 {!! $post->body !!}
             </div>
         </div>
@@ -56,7 +56,7 @@
 
     <aside class="flex flex-col items-center w-full md:w-5/12 lg:w-1/3">
 
-        <div class="sticky px-4 py-4 mx-auto top-16">
+        <div class="sticky top-16 px-4 py-4 mx-auto">
             <x-about-card />
 
             <x-related-posts-card :posts="$relatedPosts" />
