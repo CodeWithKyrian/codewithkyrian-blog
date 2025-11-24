@@ -115,7 +115,7 @@ h6 .permalink { margin-left: -13px; }
     }
 
     .prose :where(pre code):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
-        @apply !bg-transparent block overflow-x-auto pb-3;
+        @apply !bg-transparent block overflow-x-auto pb-3 leading-7;
     }
 
 
