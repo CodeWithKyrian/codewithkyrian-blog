@@ -58,10 +58,8 @@ class CategorySeeder extends Seeder
         ]);
 
         $series->children()->createMany([
-            ['title' => 'PHP Basics', 'description' => 'Join me as I guide you through the foundations of PHP programming in this beginner-friendly tutorial series. Explore essential concepts and hands-on exercises that will empower you to code with confidence.'],
-            ['title' => 'Advanced Laravel', 'description' => "Elevate your Laravel expertise with my advanced tutorial series. Together, we'll explore intricate techniques, industry best practices, and real - world applications that will take your web development skills to the next level . "],
-            ['title' => 'Mastering Vue.js', 'description' => "Embark on a Vue . js journey with me through this comprehensive tutorial series . From mastering components to diving into routing and state management, we'll delve into every facet of Vue.js development together."],
-            ['title' => 'Docker Fundamentals', 'description' => 'Explore Docker with me in this tutorial series designed to demystify containerization. Discover the essentials of Docker and practical use cases that will enable you to optimize your development environment with ease.'],
+            ['title' => 'Mastering Object Oriented Programming in PHP', 'description' => 'Get ready to dive into Object-Oriented Programming (OOP) in PHP! In this series, I\'ll show you how to use OOP in PHP in a way that\'s easy to understand. We\'ll explore classes, objects, inheritance, polymorphism, and so much more, so you can learn to create efficient and organized PHP code.'],
+            ['title' => 'Machine Learning with TransformersPHP', 'description' => 'Machine learning inference tutorials using TranformersPHP'],
         ]);
     }
 }

@@ -22,10 +22,10 @@ class ProjectSeeder extends Seeder
                 'technologies' => ['PHP'],
                 'meta' => [
                     'badges' => [
-                        ['label' => 'Downloads', 'value' => '10k+', 'color' => 'bg-blue-500'],
-                        ['label' => 'Version', 'value' => '1.0.0', 'color' => 'bg-green-500'],
+                        ['label' => 'Downloads', 'value' => '85k+', 'color' => 'bg-blue-500'],
+                        ['label' => 'Version', 'value' => '0.6.2', 'color' => 'bg-yellow-500'],
                         ['label' => 'License', 'value' => 'MIT', 'color' => 'bg-purple-500'],
-                        ['label' => 'Repo Size', 'value' => '5 MB', 'color' => 'bg-orange-500'],
+                        ['label' => 'Tests', 'value' => 'passing', 'color' => 'bg-green-500'],
                     ],
                 ],
                 'type' => ProjectType::OPEN_SOURCE,
@@ -38,10 +38,42 @@ class ProjectSeeder extends Seeder
                 'technologies' => ['PHP'],
                 'meta' => [
                     'badges' => [
-                        ['label' => 'Downloads', 'value' => '1k+', 'color' => 'bg-blue-500'],
-                        ['label' => 'Version', 'value' => '1.0.0', 'color' => 'bg-green-500'],
+                        ['label' => 'Downloads', 'value' => '103k+', 'color' => 'bg-blue-500'],
+                        ['label' => 'Version', 'value' => '0.4.0', 'color' => 'bg-yellow-500'],
                         ['label' => 'License', 'value' => 'MIT', 'color' => 'bg-purple-500'],
-                        ['label' => 'Repo Size', 'value' => '2 MB', 'color' => 'bg-orange-500'],
+                        ['label' => 'Tests', 'value' => 'passing', 'color' => 'bg-green-500'],
+                    ],
+                ],
+                'type' => ProjectType::OPEN_SOURCE,
+            ],
+            [
+                'name' => 'Whisper PHP',
+                'description' => 'Local Speech to Text in PHP made easy thanks to Whisper.cpp and OpenAI',
+                'url' => 'https://github.com/CodeWithKyrian/whisper.php',
+                'icon' => 'si-php',
+                'technologies' => ['PHP'],
+                'meta' => [
+                    'badges' => [
+                        ['label' => 'Downloads', 'value' => '2.9k+', 'color' => 'bg-blue-500'],
+                        ['label' => 'Version', 'value' => '1.1.0', 'color' => 'bg-yellow-500'],
+                        ['label' => 'License', 'value' => 'MIT', 'color' => 'bg-purple-500'],
+                        ['label' => 'Tests', 'value' => 'passing', 'color' => 'bg-green-500'],
+                    ],
+                ],
+                'type' => ProjectType::OPEN_SOURCE,
+            ],
+            [
+                'name' => 'PHP MCP Server',
+                'description' => 'Core PHP SDK for the Model Context Protocol (MCP) server',
+                'url' => 'https://github.com/php-mcp/server',
+                'icon' => 'si-php',
+                'technologies' => ['PHP'],
+                'meta' => [
+                    'badges' => [
+                        ['label' => 'Downloads', 'value' => '53k+', 'color' => 'bg-blue-500'],
+                        ['label' => 'Version', 'value' => '3.3.0', 'color' => 'bg-yellow-500'],
+                        ['label' => 'License', 'value' => 'MIT', 'color' => 'bg-purple-500'],
+                        ['label' => 'Tests', 'value' => 'passing', 'color' => 'bg-green-500'],
                     ],
                 ],
                 'type' => ProjectType::OPEN_SOURCE,
