@@ -42,7 +42,7 @@ class HomePage extends Component
     }
 
     /**
-    //  * @return LengthAwarePaginator|Collection<int, Post>
+     * @return LengthAwarePaginator|Collection<int, Post>
      * @throws BindingResolutionException
      */
     public function paginate(Builder $query, $perFirstPage = null, $perPage = null, array|string $columns = ['*'], string $pageName = 'page', ?int $page = null): LengthAwarePaginator
