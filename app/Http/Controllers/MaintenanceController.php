@@ -31,6 +31,7 @@ class MaintenanceController extends Controller
             "storage:link",
             "sitemap:generate",
             "posts:cleanup-images",
+            "media-library:regenerate",
         ];
 
         if (! in_array($action, $allowedActions, true)) {
@@ -67,6 +68,9 @@ class MaintenanceController extends Controller
                 break;
             case 'posts:cleanup-images':
                 Artisan::call('posts:cleanup-images');
+                break;
+            case 'media-library:regenerate':
+                Artisan::call('media-library:regenerate', ['--ids' => 27]);
                 break;
         }
 
