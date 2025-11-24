@@ -44,7 +44,7 @@
 
             <!-- Body -->
             <div id="postContent"
-                class="mb-4 max-w-full break-words prose md:prose-lg lg:prose-xl dark:prose-invert prose-img:rounded-md text-zinc-700 dark:text-zinc-300">
+                class="mb-4 max-w-full break-words prose md:prose-lg dark:prose-invert prose-img:rounded-md text-zinc-700 dark:text-zinc-300">
                 {!! $post->body !!}
             </div>
         </div>
