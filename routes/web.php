@@ -16,9 +16,3 @@ Route::get('/c/{category:slug}', ShowCategory::class)->name('category.show');
 
 Route::get('auth/{provider}/redirect', [SocialiteController::class, 'login'])->name('socialite.auth');
 Route::get('auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('socialite.callback');
-
-Route::get('/generate-sitemap', function () {
-    Artisan::call('sitemap:generate');
-
-    return 'Sitemap generated';
-});
