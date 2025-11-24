@@ -23,28 +23,25 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{-- @if (config('app.env') === 'production') --}}
-    {{-- <script defer src="https://cloud.umami.is/script.js" data-website-id="1809c923-309b-45e2-8c77-b54e6f06c90d"
-            data-spa="auto"></script> --}}
-    <script defer src="{{ url('um-script.js') }}" data-website-id="1809c923-309b-45e2-8c77-b54e6f06c90d" data-spa="auto">
-    </script>
-    {{-- @endif --}}
+    @if (app()->isProduction())
+        <script defer src="{{ url('um-script.js') }}" data-website-id="1809c923-309b-45e2-8c77-b54e6f06c90d" data-spa="auto"></script>
+    @endif
 </head>
 
 <body class="bg-zinc-50 dark:bg-zinc-900" @scroll.window="sticky = window.scrollY > 100">
 
     <header class="top-0 z-[100]" :class="{ 'sticky animate-[slideDown_0.3s_ease-out]': sticky }">
-        <nav class="relative backdrop-blur border-b border-zinc-200 px-6 lg:px-12 py-2.5 dark:border-zinc-700/60"
+        <nav class="relative px-6 py-2.5 border-b backdrop-blur border-zinc-200 lg:px-12 dark:border-zinc-700/60"
             :class="{ 'bg-zinc-50/50 dark:bg-zinc-900/50': sticky, 'bg-transparent': !sticky }">
-            <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
+            <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <a href="/" class="flex items-center">
-                    <img src="{{ asset('logo.png') }}" class="h-6 mr-3 sm:h-9" alt="CodeWithKyrian Logo" />
+                    <img src="{{ asset('logo.png') }}" class="mr-3 h-6 sm:h-9" alt="CodeWithKyrian Logo" />
                     <span
                         class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">CodeWithKyrian</span>
                 </a>
                 <div class="flex items-center lg:order-2">
                     <button x-on:click="darkMode = !darkMode" type="button"
-                        class="inline-flex items-center p-2 ml-1 text-sm border border-transparent rounded-lg text-zinc-500 hover:border-zinc-200 focus:outline-none focus:border-zinc-200 dark:text-zinc-400 dark:hover:border-zinc-700/60 dark:focus:border-zinc-700/60">
+                        class="inline-flex items-center p-2 ml-1 text-sm rounded-lg border border-transparent text-zinc-500 hover:border-zinc-200 focus:outline-none focus:border-zinc-200 dark:text-zinc-400 dark:hover:border-zinc-700/60 dark:focus:border-zinc-700/60">
                         <span class="sr-only">Toggle dark mode</span>
                         <span class="relative w-5 h-5">
                             <span x-cloak x-show="!darkMode" x-transition:enter="transition ease-out duration-300"
@@ -68,7 +65,7 @@
                         </span>
                     </button>
                     <button x-on:click="showNav = !showNav" x-bind:aria-expanded="showNav" aria-label="Menu"
-                        class="harmburger inline-flex lg:hidden items-center p-0.5 ml-1 text-sm text-zinc-500 rounded-lg hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-200 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600">
+                        class="inline-flex items-center p-0.5 ml-1 text-sm rounded-lg harmburger lg:hidden text-zinc-500 hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-200 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600">
                         <svg :class="{ 'open': showNav }" class="w-8 h-8 transition-transform duration-400"
                             viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6">
                             <path class="top"
@@ -81,7 +78,7 @@
                 </div>
 
                 <div :class="{ 'hidden': !showNav, 'flex': showNav }"
-                    class="items-center justify-between w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu">
+                    class="justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
                             <a wire:navigate href="{{ route('home') }}" @class([
@@ -111,11 +108,11 @@
         {{ $slot }}
     </main>
     <footer class="w-full border-t border-zinc-200 dark:border-zinc-700/60">
-        <div class="max-w-screen-xl p-4 py-6 mx-auto md:p-8">
+        <div class="p-4 py-6 mx-auto max-w-screen-xl md:p-8">
             <div class="text-center">
                 <a wire:navigate href="/"
-                    class="flex items-center justify-center mb-5 text-2xl font-semibold text-zinc-900 dark:text-white">
-                    <img src="{{ asset('logo.png') }}" class="h-6 mr-3 sm:h-9" alt="CodeWithKyrian Logo" />
+                    class="flex justify-center items-center mb-5 text-2xl font-semibold text-zinc-900 dark:text-white">
+                    <img src="{{ asset('logo.png') }}" class="mr-3 h-6 sm:h-9" alt="CodeWithKyrian Logo" />
                     CodeWithKyrian
                 </a>
                 <span class="block text-sm text-center text-zinc-500 dark:text-zinc-400">
@@ -146,10 +143,6 @@
                     <li>
                         <a id="twitter-footer" href="https://twitter.com/CodeWithKyrian" target="_blank"
                             class="text-zinc-500 hover:text-zinc-900 dark:hover:text-white dark:text-zinc-400">
-                            {{--                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"> --}}
-                            {{--                                <path --}}
-                            {{--                                    d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /> --}}
-                            {{--                            </svg> --}}
                             @svg('si-x', 'size-5')
                         </a>
                     </li>
